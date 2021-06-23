@@ -18,45 +18,58 @@ namespace HW5_1
             Console.WriteLine("**********************************************");
 
             //********************************************************************
-            
-            //По моему самое локоничное решение)
-            //В методе InputParameter булевой аргумент лишь только для сокращения всего решения 
 
-            //PrintMatrix(MuxMatrixNumb(InputMatrix(),InputParameter(true)));
-
-            //второй вариант решения, пошагово... и с большим описанием
-            int[,] matrix = InputMatrix();
-            Console.WriteLine("\nРандомная матрица");
-            PrintMatrix(matrix);
-            int number = InputParameter(true);
+            int[,] matrix = InputMatrix(InputParameter("Введите количество строк матрицы: "), InputParameter("Введите количество стобцов матрицы: "));
+            PrintMatrix(matrix, "\nРандомная матрица\n");
+            int number = InputParameter("Введите число, на которое нужно умножить матрицу: ");
             int[,] newMatrix = MuxMatrixNumb(matrix, number);
+            PrintMatrix(newMatrix, $"\nМатрица умноженная на число {number}");
 
-            Console.WriteLine($"\nМатрица умноженная на число {number}");
-            PrintMatrix(newMatrix);
-
-
-
-
-
+            // Ниже вариант решения в одну строку, но он не выводит исходную матрицу(
+            //PrintMatrix(MuxMatrixNumb(InputMatrix(InputParameter("Введите количество строк матрицы: "), InputParameter("Введите количество стобцов матрицы: ")), InputParameter("Введите число, на которое нужно умножить матрицу: ")), $"\nМатрица умноженная на число");
 
             Console.WriteLine("Для продолжения нажмите любую клавишу . . . ");
             Console.ReadKey();
             #endregion
+
+            #region Сложение матриц
+            Console.Clear();
+            Console.WriteLine("Сложение матриц");
+            Console.WriteLine("**********************************************");
+            Console.WriteLine("Инициализация матрицы А, матрица В будет иметь такую же размерность");
+            int[,] matrixA = InputMatrix(InputParameter("Введите количество строк матрицы: "), InputParameter("Введите количество стролбцов матрицы: "));
+            int[,] matrixB = InputMatrix(matrixA.GetLength(0), matrixA.GetLength(1));
+            
+            PrintMatrix(matrixA, "Матрица А:");
+            PrintMatrix(matrixB, "Матрица В:");
+
+            
+            PrintMatrix(AddMatrix(matrixA, matrixB), "Матрица С=А+В:");
+                        
+            PrintMatrix(SubMatrix(matrixA, matrixB), "Матрица С=А-В:");
+
+            Console.WriteLine("Для продолжения нажмите любую клавишу . . . ");
+            Console.ReadKey();
+            #endregion
+
+            #region Вычетание матриц
+
+            Console.WriteLine("Для продолжения нажмите любую клавишу . . . ");
+            Console.ReadKey();
+            #endregion
+
+
+            Console.WriteLine("Для продолжения нажмите любую клавишу . . . ");
+            Console.ReadKey();
+            
         }
         /// <summary>
         /// Метод рандомного заполнения матрицы
         /// </summary>
         /// <returns>Новая рандомная матрица</returns>
-        static int[,] InputMatrix()
-        {
-            Console.WriteLine("Введите размерность для матрицы");
-            Console.WriteLine("Введите количество строк");
-            int row= InputParameter(false);
-            Console.WriteLine("Введите количество столбцов");
-            int col= InputParameter(false);
-
-            //Формируем и выводим на экран матрицу случайным образом
-            
+        static int[,] InputMatrix(int row, int col)
+        {            
+            //Формируем и выводим на экран матрицу случайным образом            
             Random randomNumber = new Random();
             int[,] matrix = new int[row, col];
 
@@ -74,10 +87,10 @@ namespace HW5_1
         /// </summary>
         /// <param name="flag">Исключительно для вывода строки напоминания. true - выводим сообщение</param>
         /// <returns>Целое положительное число</returns>
-        static int InputParameter(bool flag)
+        static int InputParameter(string text)
         {
-            if(flag) Console.WriteLine("Введите число на которое нужно умножить матрицу");
-            
+            Console.Write(text);
+                       
             bool correctParse;
             int number;
             do
@@ -86,15 +99,16 @@ namespace HW5_1
                 if (number <= 0) Console.WriteLine("Не коррекные данные, повторите ввод");
             }
             while (!correctParse || number <= 0);
-
+            Console.WriteLine("");
             return number;
         }
         /// <summary>
         /// Выводит на экран двумерную матрицу
         /// </summary>
         /// <param name="matrix">принимает в качестве аргумента матрицу</param>
-        static void PrintMatrix(int[,] matrix)
+        static void PrintMatrix(int[,] matrix, string title)
         {
+            Console.WriteLine(title);
             for (var i = 0; i < matrix.GetLength(0); i++)
             {
                 for (var j = 0; j < matrix.GetLength(1); j++)
@@ -123,6 +137,29 @@ namespace HW5_1
             return newMatrix;
         }
 
-
+        static int[,] AddMatrix(int[,] matrixA, int[,] matrixB)
+        {
+            int[,] newMatrix = new int[matrixA.GetLength(0), matrixA.GetLength(1)];
+            for (var i = 0; i < matrixA.GetLength(0); i++)
+            {
+                for (var j = 0; j < matrixA.GetLength(1); j++)
+                {
+                    newMatrix[i, j] = matrixA[i, j] + matrixB[i, j];
+                }                
+            }
+            return newMatrix;
+        }
+        static int[,] SubMatrix(int[,] matrixA, int[,] matrixB)
+        {
+            int[,] newMatrix = new int[matrixA.GetLength(0), matrixA.GetLength(1)];
+            for (var i = 0; i < matrixA.GetLength(0); i++)
+            {
+                for (var j = 0; j < matrixA.GetLength(1); j++)
+                {
+                    newMatrix[i, j] = matrixA[i, j] - matrixB[i, j];
+                }
+            }
+            return newMatrix;
+        }
     }
 }
