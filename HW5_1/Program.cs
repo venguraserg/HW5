@@ -75,8 +75,7 @@ namespace HW5_1
             Console.WriteLine("Для продолжения нажмите любую клавишу . . . ");
             Console.ReadKey();
             #endregion
-
-            
+                        
         }
         /// <summary>
         /// Метод заполнения случайным образом
