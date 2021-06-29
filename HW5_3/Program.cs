@@ -13,42 +13,39 @@ namespace HW5_3
             do
             {
                 Console.Clear();
-                string text = Console.ReadLine().ToLower();
-                Console.WriteLine(text + "\n\n");
-                var charArray = text.ToCharArray();
-                char[] newCharArray = new char[charArray.Length];
-                newCharArray[0] = charArray[0];
-                for (int i = 1, count = 1; i < charArray.Length; i++)
-                {
-                    if (charArray[i - 1] != charArray[i])
-                    {
-
-                        newCharArray[count] = charArray[i];
-                        count++;
-
-                    }
-                }
-
-                string s = new string(newCharArray);
-
-
-                Console.WriteLine(s);
-
-
-
-                Console.WriteLine("Для продолжения нажмите любую клавишу . . . ");
-                Console.ReadKey();
-
+                Console.WriteLine("Введите строку для преобразования");
+                Console.WriteLine("Строка после преобразования:\n" + OutString(Console.ReadLine()));
             }
             while (Quit());
               
 
         }
-
-
-
-
-
+        /// <summary>
+        /// Метод удаления одинаковых символов которые стоят рядом
+        /// </summary>
+        /// <param name="text">Входящий текст</param>
+        /// <returns>преобразовнаную строку</returns>
+        static string OutString(string text)
+        {
+           
+            text = text.ToLower();
+            var charArray = text.ToCharArray();
+            char[] newCharArray = new char[charArray.Length];
+            newCharArray[0] = charArray[0];
+            for (int i = 1, count = 1; i < charArray.Length; i++)
+            {
+                if (charArray[i - 1] != charArray[i])
+                {
+                    newCharArray[count] = charArray[i];
+                    count++;
+                }
+            }
+            return new string(newCharArray);
+        }
+        /// <summary>
+        /// Метод выхода из приложения
+        /// </summary>
+        /// <returns>true - выход, false - продолжаем</returns>
         static bool Quit()
         {          
             Console.WriteLine("ВЫЙТИ ИЗ ПРИЛОЖЕНИЯ  (y/n)?:");
