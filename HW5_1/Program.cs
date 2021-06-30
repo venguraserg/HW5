@@ -72,10 +72,9 @@ namespace HW5_1
 
             PrintMatrix(MuxMatrix(matrix_A,matrix_B),"Произведение матриц А и В: ");
 
+            #endregion
             Console.WriteLine("Для продолжения нажмите любую клавишу . . . ");
             Console.ReadKey();
-            #endregion
-                        
         }
         /// <summary>
         /// Метод заполнения случайным образом
