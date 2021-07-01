@@ -125,9 +125,11 @@ namespace HW5_1
         static void PrintMatrix(int[,] matrix, string title)
         {
             Console.WriteLine(title);
-            for (var i = 0; i < matrix.GetLength(0); i++)
+            int row = matrix.GetLength(0);
+            int col = matrix.GetLength(1);
+            for (var i = 0; i < row; i++)
             {
-                for (var j = 0; j < matrix.GetLength(1); j++)
+                for (var j = 0; j < col; j++)
                 {
                     Console.Write($"{matrix[i, j],7}");
                 }
@@ -142,10 +144,13 @@ namespace HW5_1
         /// <returns>матрицу умноженную на множитель</returns>
         static int[,] MuxMatrixNumb(int[,] matrix, int number )
         {
-            int[,] newMatrix = new int[matrix.GetLength(0), matrix.GetLength(1)];
-            for (var i = 0; i < matrix.GetLength(0); i++)
+            int row = matrix.GetLength(0);
+            int col = matrix.GetLength(1);
+            int[,] newMatrix = new int[row, col];
+            
+            for (var i = 0; i < row; i++)
             {
-                for (var j = 0; j < matrix.GetLength(1); j++)
+                for (var j = 0; j < col; j++)
                 {
                     newMatrix[i, j] = matrix[i, j] * number;
                 }
@@ -160,10 +165,14 @@ namespace HW5_1
         /// <returns>Возращает матрицу равной сумме матриц А и В</returns>
         static int[,] AddMatrix(int[,] matrixA, int[,] matrixB)
         {
-            int[,] newMatrix = new int[matrixA.GetLength(0), matrixA.GetLength(1)];
-            for (var i = 0; i < matrixA.GetLength(0); i++)
+            int rowA = matrixA.GetLength(0);
+            int colA = matrixA.GetLength(1);
+            int[,] newMatrix = new int[rowA, colA];
+            
+
+            for (var i = 0; i < rowA; i++)
             {
-                for (var j = 0; j < matrixA.GetLength(1); j++)
+                for (var j = 0; j < colA; j++)
                 {
                     newMatrix[i, j] = matrixA[i, j] + matrixB[i, j];
                 }                
@@ -178,10 +187,13 @@ namespace HW5_1
         /// <returns>Возращает матрицу равной разности матриц А и В</returns>
         static int[,] SubMatrix(int[,] matrixA, int[,] matrixB)
         {
-            int[,] newMatrix = new int[matrixA.GetLength(0), matrixA.GetLength(1)];
-            for (var i = 0; i < matrixA.GetLength(0); i++)
+            int rowA = matrixA.GetLength(0);
+            int colA = matrixA.GetLength(1);
+            int[,] newMatrix = new int[rowA, colA];
+
+            for (var i = 0; i < rowA; i++)
             {
-                for (var j = 0; j < matrixA.GetLength(1); j++)
+                for (var j = 0; j < colA; j++)
                 {
                     newMatrix[i, j] = matrixA[i, j] - matrixB[i, j];
                 }
@@ -196,19 +208,21 @@ namespace HW5_1
         /// <returns>Возращает матрицу равной произведению матриц А и В</returns>
         static int[,] MuxMatrix(int[,] matrixA, int[,] matrixB)
         {
-            int[,] newMatrix = new int[matrixA.GetLength(0), matrixB.GetLength(1)];
+            int rowA = matrixA.GetLength(0);
+            int colB = matrixB.GetLength(1);
+            int[,] newMatrix = new int[rowA, colB];
 
-            for (var i = 0; i < matrixA.GetLength(0); i++)
+            for (var i = 0; i < rowA; i++)
             {
-                for (var j = 0; j < matrixB.GetLength(1); j++)
+                for (var j = 0; j < colB; j++)
                 {
 
-                    for (var k = 0; k < matrixB.GetLength(1); k++)
+                    for (var k = 0; k < colB; k++)
                     {
                         int temp_1, temp_2;
-                        if (k < matrixA.GetLength(1)) temp_1 = matrixA[i, k];
+                        if (k < rowA) temp_1 = matrixA[i, k];
                         else temp_1 = 0;
-                        if (k < matrixB.GetLength(0)) temp_2 = matrixB[k, j];
+                        if (k < colB) temp_2 = matrixB[k, j];
                         else temp_2 = 0;
 
                         newMatrix[i, j] += temp_1 * temp_2; ;

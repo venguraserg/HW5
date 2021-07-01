@@ -34,29 +34,40 @@ namespace HW5_4
             //инициализация коэфициентов
             int d = sequence[1] - sequence[0];
             int q = sequence[1] / sequence[0];
-            string text=null;
+            string text1=string.Empty;
+            string text2 = string.Empty;
+            string text3 = string.Empty;
             //проверка на арифметическую прогрессию
-            for(int i = 2; i < sequence.Length; i++)
+            for (int i = 2; i < sequence.Length; i++)
             {
                 if (sequence[i] - sequence[i - 1] != d)
                 {
-                    text = "не является";
+                    text1 = string.Empty;
                     break;
                 }
-                text = "является АРИФМЕТИЧЕСКОЙ";
+                text1 = "АРИФМЕТИЧЕСКАЯ прогрессия" ;
             }
             //проверка на геометрическую прогрессию
             for (int i = 2; i < sequence.Length; i++)
             {
-                if (sequence[i] / sequence[i - 1] != q)
-                {
-                    text = "не является";
+                /*
+                 *Для геометрической прогресси обязательным условием является то
+                 *что знаменатель прогресси q и член прогресси a[i] не равны нулю
+                 */
+                if (sequence[i - 1] == 0 || q == 0) {
+                    text2 = string.Empty;
                     break;
                 }
-                text = "является ГЕОМЕТРИЧЕСКОЙ";
+                if (sequence[i] / sequence[i - 1] != q)
+                {
+                    text2 = string.Empty;
+                    break;
+                }
+                text2 = "ГЕОМЕТРИЧЕСКАЯ прогрессия";
             }
+            if (text1 == string.Empty && text2 == string.Empty) text3 = "не является прогрессией";
 
-            return $"Последовательность {text} прогрессией";
+            return "Последовательность - "+text1+((text1 != "" && text2 != "" ? " и ":" "))+text2+" "+text3;
         }
         /// <summary>
         /// Метод ввода последовательности
